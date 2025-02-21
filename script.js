@@ -109,7 +109,7 @@ async function renderInventory(uuid, lang = "de_de") {
                     const image = document.createElement("img");
                     image.src = `item/${id}.png`;
                     image.alt = item.displayName || id;
-                    image.onerror = () => slot.style.backgroundImage = `url(item/barrier.png)`;
+                    image.onerror = () => slot.style.backgroundImage = `url(block/${id}.png)`;
 
                     slot.addEventListener("mouseover", (e) => {
                         const tooltip = document.createElement("div");
@@ -241,7 +241,7 @@ function createSkin(uuid) {
 }
 
 function getItemName(id, data) {
-    return data["item.minecraft." + id] || id;
+    return data["item.minecraft." + id] || data["block.minecraft." + id] || id;
 }
 
 //get uuid from url parameter
