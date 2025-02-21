@@ -1,3 +1,53 @@
+//{
+//     "version": 0,
+//     "armor": [
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_helmet\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_chestplate\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_leggings\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_boots\"\n}"
+//     ],
+//     "offhand": [
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:shield\"\n}"
+//     ],
+//     "main": [
+//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:sharpness\": 1\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_sword\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_axe\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 6,\n    id: \"minecraft:golden_apple\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:cobblestone\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 8,\n    id: \"minecraft:cobweb\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:power\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:bow\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:piercing\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:crossbow\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:arrow\"\n}",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:efficiency\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_pickaxe\"\n}",
+//         "EMPTY",
+//         "EMPTY",
+//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:custom_name\": '{\"extra\":[{\"bold\":true,\"italic\":false,\"text\":\"Tracker\"}],\"text\":\"\"}'\n    },\n    count: 1,\n    id: \"minecraft:compass\"\n}",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY",
+//         "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:cooked_beef\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
+//         "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:oak_planks\"\n}",
+//         "EMPTY",
+//         "EMPTY",
+//         "EMPTY"
+//     ]
+// }
 
 async function getStats(uuid) {
     const response = await fetch(`https://api.hglabor.de/stats/ffa/${uuid}`);
@@ -17,7 +67,8 @@ function fixJson(str) {
     return fixed;
 }
 
-async function renderInventory(uuid) {
+async function renderInventory(uuid, lang = "de_de") {
+    const itemData = await fetch(lang + ".json").then(response => response.json());
     const data = await getStats(uuid);
     try {
         const { main, offhand, armor } = data.inventory;
@@ -52,11 +103,62 @@ async function renderInventory(uuid) {
 
                 if (item) {
                     const id = item.id.split(":")[1];
+
                     slot.style.backgroundImage = `url(item/${id}.png)`;
+
+                    const image = document.createElement("img");
+                    image.src = `item/${id}.png`;
+                    image.alt = item.displayName || id;
+                    image.onerror = () => slot.style.backgroundImage = `url(item/barrier.png)`;
+
+                    // Tooltip erstellen, wenn mit der Maus über das Slot gehovert wird
+                    slot.addEventListener("mouseover", (e) => {
+                        const tooltip = document.createElement("div");
+                        tooltip.classList.add("tooltip");
+
+                        const name = item.components?.["minecraft:custom_name"] || getItemName(id, itemData) || id;
+
+                        const nameElement = document.createElement("div");
+                        nameElement.textContent = name;
+                        tooltip.appendChild(nameElement);
+
+                        const idElement = document.createElement("div");
+                        idElement.classList.add("id");
+                        idElement.textContent = item.id;
+                        tooltip.appendChild(idElement);
+
+                        document.body.appendChild(tooltip);
+                        slot._tooltip = tooltip;
+                    });
+
+                    // Tooltip folgt der Maus
+                    slot.addEventListener("mousemove", (e) => {
+                        if (slot._tooltip) {
+                            slot._tooltip.style.left = (e.pageX + 10) + "px";
+                            slot._tooltip.style.top = (e.pageY + 10) + "px";
+                        }
+                    });
+
+                    // Tooltip entfernen, wenn die Maus das Slot verlässt
+                    slot.addEventListener("mouseout", () => {
+                        if (slot._tooltip) {
+                            slot._tooltip.remove();
+                            slot._tooltip = null;
+                        }
+                    });
+
+                    if (parseInt(item.count) > 1) {
+                        const amount = document.createElement("div");
+                        amount.classList.add("amount");
+                        amount.textContent = item.count;
+                        slot.appendChild(amount);
+                    }
+
                 }
                 targetContainer.appendChild(slot);
             });
         }
+
 
         // Aufteilen der Main-Liste in Hotbar (Slots 0-8) und Container (Slots 9-35)
         processItems(main.slice(0, 9), hotbar);
@@ -118,9 +220,14 @@ function createSkin(uuid) {
     });
 }
 
+function getItemName(id, data) {
+    return data["item.minecraft." + id] || id;
+}
+
 renderInventory("202bd80d-1cae-4812-a028-42b0a478346e").then(() => console.log("done"));
 
 document.getElementById("load").addEventListener("click", () => {
     const uuid = document.getElementById("uuid").value;
-    renderInventory(uuid).then(() => console.log("done"));
+    const lang = document.getElementById("lang").value;
+    renderInventory(uuid, lang).then(() => console.log("done"));
 });
