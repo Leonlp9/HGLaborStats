@@ -139,8 +139,23 @@ async function renderInventory(uuid, lang = "de_de") {
                     // Tooltip folgt der Maus
                     slot.addEventListener("mousemove", (e) => {
                         if (slot._tooltip) {
-                            slot._tooltip.style.left = (e.pageX + 10) + "px";
-                            slot._tooltip.style.top = (e.pageY + 10) + "px";
+                            const tooltipWidth = slot._tooltip.offsetWidth;
+                            const tooltipHeight = slot._tooltip.offsetHeight;
+                            const pageWidth = window.innerWidth;
+                            const pageHeight = window.innerHeight;
+
+                            let left = e.pageX + 10;
+                            let top = e.pageY + 10;
+
+                            if (left + tooltipWidth > pageWidth) {
+                                left = e.pageX - tooltipWidth - 10;
+                            }
+                            if (top + tooltipHeight > pageHeight) {
+                                top = e.pageY - tooltipHeight - 10;
+                            }
+
+                            slot._tooltip.style.left = left + "px";
+                            slot._tooltip.style.top = top + "px";
                         }
                     });
 
