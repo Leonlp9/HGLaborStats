@@ -5,23 +5,58 @@
     <title>Title</title>
     <script src="https://unpkg.com/skinview3d@3.0.0-alpha.1/bundles/skinview3d.bundle.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-image: url('https://steamuserimages-a.akamaihd.net/ugc/2310974141604980016/B4EF3A7A2D1772DE26B1A6F51CE33A04FD8BB917/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        #iframeCode {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 <div id="controls">
     <input type="text" id="uuid" placeholder="UUID" value="202bd80d-1cae-4812-a028-42b0a478346e">
-    <button id="load">Load</button>
+    <button id="load" onclick="load()">Load</button>
     <select id="lang">
         <option value="en_us">English</option>
         <option value="de_de" selected>Deutsch</option>
     </select>
 </div>
-<div id="inventory">
-    <div id="hotbar"></div>
-    <div id="container"></div>
-    <div id="offhand"></div>
-    <div id="armor"></div>
-    <canvas id="skin_container"></canvas>
-</div>
+
+<div id="showHere"></div>
+<code id="iframeCode"></code>
+
+<script>
+    function load() {
+        //erstelle ein neues Iframe Element und setze die Attribute
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('src', 'inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value);
+        iframe.setAttribute('height', '800px');
+        iframe.setAttribute('width', '850px');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('scrolling', 'no');
+
+        document.getElementById('showHere').innerHTML = '';
+        document.getElementById('showHere').appendChild(iframe);
+
+        //erstelle den Code für das Iframe
+        document.getElementById('iframeCode').innerText = '<iframe src="inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '" height="800px" width="850px" frameborder="0" scrolling="no"></iframe>';
+    }
+</script>
 </body>
-<script src="script.js"></script>
 </html>

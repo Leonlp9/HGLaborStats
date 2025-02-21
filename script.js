@@ -111,15 +111,20 @@ async function renderInventory(uuid, lang = "de_de") {
                     image.alt = item.displayName || id;
                     image.onerror = () => slot.style.backgroundImage = `url(item/barrier.png)`;
 
-                    // Tooltip erstellen, wenn mit der Maus über das Slot gehovert wird
                     slot.addEventListener("mouseover", (e) => {
                         const tooltip = document.createElement("div");
                         tooltip.classList.add("tooltip");
 
-                        const name = item.components?.["minecraft:custom_name"] || getItemName(id, itemData) || id;
+                        // Verwende den 'minecraft:custom_name'-Component, falls vorhanden
+                        const rawName = item.components?.["minecraft:custom_name"] || getItemName(id, itemData) || id;
 
                         const nameElement = document.createElement("div");
-                        nameElement.textContent = name;
+                        // Wenn es ein Component (Formatierungscodes) ist, als HTML rendern
+                        if (item.components?.["minecraft:custom_name"]) {
+                            nameElement.innerHTML = convertMinecraftFormatting(rawName);
+                        } else {
+                            nameElement.textContent = rawName;
+                        }
                         tooltip.appendChild(nameElement);
 
                         const idElement = document.createElement("div");
@@ -224,10 +229,54 @@ function getItemName(id, data) {
     return data["item.minecraft." + id] || id;
 }
 
-renderInventory("202bd80d-1cae-4812-a028-42b0a478346e").then(() => console.log("done"));
+//get uuid from url parameter
+const urlParams = new URLSearchParams(window.location.search);
+const uuid = urlParams.get('uuid');
+const lang = urlParams.get('lang') || "de_de";
+renderInventory(uuid, lang).then(() => console.log("done"));
 
-document.getElementById("load").addEventListener("click", () => {
-    const uuid = document.getElementById("uuid").value;
-    const lang = document.getElementById("lang").value;
-    renderInventory(uuid, lang).then(() => console.log("done"));
-});
+function convertMinecraftFormatting(component) {
+    let html = "";
+    const colorMapping = {
+        'black': '#000000',
+        'dark_blue': '#0000AA',
+        'dark_green': '#00AA00',
+        'dark_aqua': '#00AAAA',
+        'dark_red': '#AA0000',
+        'dark_purple': '#AA00AA',
+        'gold': '#FFAA00',
+        'gray': '#AAAAAA',
+        'dark_gray': '#555555',
+        'blue': '#5555FF',
+        'green': '#55FF55',
+        'aqua': '#55FFFF',
+        'red': '#FF5555',
+        'light_purple': '#FF55FF',
+        'yellow': '#FFFF55',
+        'white': '#FFFFFF'
+    };
+
+    if (typeof component === "string") {
+        component = JSON.parse(component);
+    }
+
+    const text = component.text || "";
+    console.log(component);
+
+    if (component.extra) {
+        component.extra.forEach(extra => {
+            html += convertMinecraftFormatting(extra);
+        });
+    }
+
+    let classes = [];
+    if (component.bold) classes.push("bold");
+    if (component.italic) classes.push("italic");
+    if (component.underlined) classes.push("underlined");
+    if (component.strikethrough) classes.push("strikethrough");
+
+    html += `<span class="${classes.join(" ")}" style="color: ${colorMapping[component.color] || component.color || "inherit"}">${text}</span>`;
+
+
+    return html;
+}

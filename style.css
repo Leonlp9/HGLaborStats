@@ -7,17 +7,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    flex-wrap: wrap;
-
-    background-image: url('https://steamuserimages-a.akamaihd.net/ugc/2310974141604980016/B4EF3A7A2D1772DE26B1A6F51CE33A04FD8BB917/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 #controls {
@@ -137,6 +126,24 @@ body {
     font-family: Minecraft, sans-serif;
     border: 2px solid #380b6a;
     user-select: none;
+    text-shadow: 3px 3px 0px #2b2b2b;
+}
+
+.tooltip .bold {
+    text-shadow: 2px 0 0 #ffffff;
+    letter-spacing: 2px;
+}
+
+.tooltip .underline {
+    text-decoration: underline;
+}
+
+.tooltip .italic {
+    font-style: italic;
+}
+
+.tooltip .strikethrough {
+    text-decoration: line-through;
 }
 
 .tooltip .id {
