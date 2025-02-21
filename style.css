@@ -1,0 +1,126 @@
+@font-face {
+    font-family: 'Minecraft';
+    src: url('minecraft.woff2') format('woff2');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    background-image: url('https://steamuserimages-a.akamaihd.net/ugc/2310974141604980016/B4EF3A7A2D1772DE26B1A6F51CE33A04FD8BB917/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#controls {
+    display: grid;
+    grid-template-columns: auto 50px;
+    margin-bottom: 10px;
+    width: 350px;
+}
+
+#controls input {
+    padding: 5px;
+    border-top: 1px solid #838383;
+    border-bottom: 1px solid #838383;
+    border-left: 1px solid #838383;
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 16px;
+}
+
+#controls button {
+    padding: 5px;
+    border-top: 1px solid #838383;
+    border-bottom: 1px solid #838383;
+    border-right: 1px solid #838383;
+    border-left: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+#inventory {
+    background-image: url('inventory.png');
+    height: 800px;
+    aspect-ratio: 16/15.1;
+    background-size: cover;
+    image-rendering: pixelated;
+    position: relative;
+}
+
+#inventory #hotbar {
+    position: absolute;
+    top: 85%;
+    left: 4%;
+    width: 92.15%;
+    height: 10.75%;
+
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+#inventory #container {
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    width: 92.15%;
+    height: 32.5%;
+
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+#inventory #offhand {
+    position: absolute;
+    top: 36.75%;
+    left: 43%;
+    width: 10.75%;
+    height: 10.75%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+#inventory #armor {
+    position: absolute;
+    top: 4.25%;
+    left: 4%;
+    width: 10.25%;
+    height: 43.25%;
+
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+}
+
+#inventory #hotbar div, #inventory #container div, #inventory #offhand div , #inventory #armor div {
+    margin: 6%;
+}
+
+#inventory #container div, #inventory #hotbar div, #inventory #offhand div, #inventory #armor div {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+}
+
+#skin_container {
+    position: absolute;
+    top: 4.25%;
+    left: 14.2%;
+    width: 29% !important;
+    height: 43.35% !important;
+}
