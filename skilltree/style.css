@@ -10,6 +10,12 @@ body {
     user-select: none;
 }
 
+#skillTree {
+    position: relative;
+    width: 100vmax;
+    aspect-ratio: 16/13.75;
+}
+
 #tabs, #tabs-open {
     display: grid;
     grid-template-columns: repeat(9, 80px);
