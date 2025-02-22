@@ -1,5 +1,8 @@
 const heros = [
     aang = {
+        name: "Aang",
+        description: "Aang is the last airbender and the avatar. He is the only one who can bend all four elements.",
+        icon: "url(aang.png)",
         tabs: [
             air_scooter = {
                 name: "Air Scooter",
@@ -10,17 +13,47 @@ const heros = [
                     {
                         id: "max_duration",
                         name: "Max Duration",
-                        description: "The maximin time you can hold the ability",
+                        description: "The maximum time you can hold the ability.",
                         icon: "url(../item/clock.png)",
                         position: { x: -2, y: 3 },
                         challengeType: "task",
                         requirements: [
-                            {
-                                id: "max_duration",
-                                value: 1,
-                            }
+                            "air_scooter",
                         ],
-                    }
+                    },
+                    {
+                        id: "cooldown",
+                        name: "Cooldown",
+                        description: "Thetime you must wait before you can use the ability again.",
+                        icon: "url(../item/clock.png)",
+                        position: { x: -5, y: 3 },
+                        challengeType: "task",
+                        requirements: [
+                            "air_scooter",
+                        ],
+                    },
+                    {
+                        id: "speed",
+                        name: "Speed",
+                        description: "How fast you can move with the ability.",
+                        icon: "url(../item/wind_charge.png)",
+                        position: { x: 2, y: 3 },
+                        challengeType: "task",
+                        requirements: [
+                            "air_scooter",
+                        ],
+                    },
+                    {
+                        id: "step_height",
+                        name: "Step Height",
+                        description: "The maximum height of steps you can climb.",
+                        icon: "url(../item/feather.png)",
+                        position: { x: 5, y: 3 },
+                        challengeType: "task",
+                        requirements: [
+                            "air_scooter",
+                        ],
+                    },
                 ],
                 position: { x: 0, y: 1 },
                 challengeType: "challenge",
@@ -73,10 +106,51 @@ const heros = [
         ]
     },
     katara = {
+        name: "Katara",
+        description: "Katara is a waterbender and the wife of Aang.",
+        icon: "url(katara.png)",
+        tabs: [
+            {
+                name: "Kommt noch",
+                description: "Hab das noch nicht ingame gesehen",
+                background: "url(../block/white_wool.png)",
+                icon: "url(../item/feather.png)",
+                skills: [
 
+                ],
+                position: { x: 0, y: 1 },
+                challengeType: "challenge",
+            },
+            {
+                name: "Kommt noch",
+                description: "Hab das noch nicht ingame gesehen",
+                background: "url(../block/white_wool.png)",
+                icon: "url(../item/feather.png)",
+                skills: [
+
+                ],
+                position: { x: 0, y: 1 },
+                challengeType: "challenge",
+            }
+        ]
     },
     toph = {
+        name: "Toph",
+        description: "Toph is an earthbender and the best friend of Aang.",
+        icon: "url(toph.png)",
+        tabs: [
+            {
+                name: "Kommt noch",
+                description: "Hab das noch nicht ingame gesehen",
+                background: "url(../block/dirt.png)",
+                icon: "url(../item/feather.png)",
+                skills: [
 
+                ],
+                position: { x: 0, y: 1 },
+                challengeType: "challenge",
+            }
+        ]
     },
 ]
 
@@ -89,6 +163,10 @@ function renderSkillTree(hero) {
     const tabs = hero.tabs;
     const tabsContainer = document.getElementById('tabs');
     const tabsOpenContainer = document.getElementById('tabs-open');
+
+    const heroTabsContainer = document.getElementById('tabs_bottom');
+    const heroTabsOpenContainer = document.getElementById('tabs_bottom-open');
+
     const content = document.getElementById('content');
     const title = document.getElementById('title');
     const xp = document.getElementById('xp');
@@ -97,6 +175,8 @@ function renderSkillTree(hero) {
     tabsContainer.innerHTML = '';
     tabsOpenContainer.innerHTML = '';
     xp.textContent = stats.xp;
+    heroTabsContainer.innerHTML = '';
+    heroTabsOpenContainer.innerHTML = '';
 
     tabs.forEach((tab, index) => {
         // Create tab button
@@ -128,6 +208,34 @@ function renderSkillTree(hero) {
         tabsOpenContainer.appendChild(openTabButton);
     });
 
+    //hero tabs
+    heros.forEach(hero => {
+        const heroTabButton = document.createElement('button');
+        heroTabButton.addEventListener('click', () => {
+            renderSkillTree(hero);
+        });
+
+        const heroTabIcon = document.createElement('div');
+        heroTabIcon.classList.add('icon');
+        heroTabIcon.style.backgroundImage = hero.icon;
+        heroTabButton.appendChild(heroTabIcon);
+
+        heroTabsContainer.appendChild(heroTabButton);
+
+        const heroOpenTabButton = document.createElement('button');
+        heroOpenTabButton.classList.add('open');
+        heroOpenTabButton.addEventListener('click', () => {
+            renderSkillTree(hero);
+        });
+
+        const heroOpenTabIcon = document.createElement('div');
+        heroOpenTabIcon.classList.add('icon');
+        heroOpenTabIcon.style.backgroundImage = hero.icon;
+        heroOpenTabButton.appendChild(heroOpenTabIcon);
+
+        heroTabsOpenContainer.appendChild(heroOpenTabButton);
+    });
+
     function openTab(index) {
         const selectedTab = tabs[index];
         title.querySelector('h1').innerText = selectedTab.name;
@@ -137,6 +245,10 @@ function renderSkillTree(hero) {
         // Update tab visibility
         tabsOpenContainer.querySelectorAll('button').forEach((button, i) => {
             button.style.opacity = i === index ? '1' : '0';
+        });
+
+        heroTabsOpenContainer.querySelectorAll('button').forEach((button, i) => {
+            button.style.opacity = hero === heros[i] ? '1' : '0';
         });
 
         content.scrollLeft = content.scrollWidth / 2 - content.clientWidth / 2;

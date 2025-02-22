@@ -22,11 +22,22 @@ body {
     z-index: 0;
 }
 
-#tabs-open{
+#tabs_bottom, #tabs_bottom-open {
+    display: grid;
+    grid-template-columns: repeat(9, 80px);
+    gap: 3px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+}
+
+#tabs-open, #tabs_bottom-open {
     z-index: 3;
 }
 
-#tabs-open button, #tabs button {
+#tabs-open button, #tabs button, #tabs_bottom-open button, #tabs_bottom button {
     height: 100px;
     background: transparent;
     background-image: url("tab_top_unselected_1.png");
@@ -37,7 +48,12 @@ body {
     border: none;
 }
 
-#tabs-open button .icon, #tabs button .icon {
+#tabs_bottom button, #tabs_bottom-open button {
+    background-image: url("tab_bottom_unselected_1.png");
+    transform: translateY(-1px);
+}
+
+#tabs-open button .icon, #tabs button .icon, #tabs_bottom-open button .icon, #tabs_bottom button .icon {
     width: 50px;
     height: 50px;
     margin: 0 auto;
@@ -61,6 +77,23 @@ body {
 }
 
 #tabs-open button:nth-child(1) {
+    background-image: url("tab_top_selected_1.png");
+}
+
+#tabs_bottom-open button{
+    opacity: 0;
+}
+
+#tabs_bottom-open button.open {
+    opacity: 1;
+    background-image: url("tab_bottom_selected_2.png");
+}
+
+#tabs_bottom-open button:nth-child(1) {
+    background-image: url("tab_bottom_selected_1.png");
+}
+
+#tabs button.open {
     background-image: url("tab_top_selected_1.png");
 }
 
