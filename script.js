@@ -1,58 +1,60 @@
-//{
-//     "version": 0,
-//     "armor": [
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_helmet\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_chestplate\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_leggings\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_boots\"\n}"
-//     ],
-//     "offhand": [
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:shield\"\n}"
-//     ],
-//     "main": [
-//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:sharpness\": 1\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_sword\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_axe\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 6,\n    id: \"minecraft:golden_apple\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:cobblestone\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 8,\n    id: \"minecraft:cobweb\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:power\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:bow\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:piercing\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:crossbow\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:arrow\"\n}",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:efficiency\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_pickaxe\"\n}",
-//         "EMPTY",
-//         "EMPTY",
-//         "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:custom_name\": '{\"extra\":[{\"bold\":true,\"italic\":false,\"text\":\"Tracker\"}],\"text\":\"\"}'\n    },\n    count: 1,\n    id: \"minecraft:compass\"\n}",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY",
-//         "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:cooked_beef\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
-//         "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:oak_planks\"\n}",
-//         "EMPTY",
-//         "EMPTY",
-//         "EMPTY"
-//     ]
-// }
 
 async function getStats(uuid) {
     const response = await fetch(`https://api.hglabor.de/stats/ffa/${uuid}`);
     const data = await response.json();
     console.log(data);
+
+    data.inventory = {
+        "version": 0,
+        "armor": [
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_boots\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_leggings\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_chestplate\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_helmet\"\n}"
+        ],
+        "offhand": [
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:shield\"\n}"
+        ],
+        "main": [
+            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:sharpness\": 1\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_sword\"\n}",
+            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_axe\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 6,\n    id: \"minecraft:golden_apple\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:cobblestone\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 8,\n    id: \"minecraft:cobweb\"\n}",
+            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:power\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:bow\"\n}",
+            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:piercing\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:crossbow\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:arrow\"\n}",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:efficiency\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_pickaxe\"\n}",
+            "EMPTY",
+            "EMPTY",
+            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:custom_name\": '{\"extra\":[{\"bold\":true,\"italic\":false,\"text\":\"Tracker\"}],\"text\":\"\"}'\n    },\n    count: 1,\n    id: \"minecraft:compass\"\n}",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:cooked_beef\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
+            "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:oak_planks\"\n}",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+        ]
+    };
+
     return data;
 }
 
@@ -188,7 +190,7 @@ async function renderInventory(uuid, lang = "de_de") {
 
         createSkin(uuid);
     } catch (e) {
-        alert("Dieser Spieler hat sein Inventar noch nicht bearbeitet.");
+        // alert("Dieser Spieler hat sein Inventar noch nicht bearbeitet.");
         return;
     }
 }

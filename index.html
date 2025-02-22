@@ -45,8 +45,7 @@
         <option value="de_de" selected>Deutsch</option>
     </select>
 </div>
-
-<div id="showHere"></div>
+<h2 style="background: #f0f0f0; color: red; width: 850px; margin: auto 10px 10px; padding: 10px; border-radius: 5px">Die API wird derzeit von Enrico bearbeitet, damit das Inventar eine eigene API-Route erhält. Deshalb wird nur mein Inventar angezeigt, das ich irgendwann einmal gespeichert habe.</h2><div id="showHere"></div>
 <code id="iframeCode"></code>
 
 <div id="skillTree"></div>
@@ -71,7 +70,7 @@
 
         var iframeSkillTree = document.createElement('iframe');
         iframeSkillTree.setAttribute('src', 'skilltree/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value);
-        iframeSkillTree.setAttribute('height', '800px');
+        iframeSkillTree.setAttribute('height', '720px');
         iframeSkillTree.setAttribute('width', '850px');
         iframeSkillTree.setAttribute('frameborder', '0');
         iframeSkillTree.setAttribute('scrolling', 'no');
@@ -80,7 +79,7 @@
         document.getElementById('skillTree').appendChild(iframeSkillTree);
 
         //erstelle den Code für das Iframe
-        document.getElementById('iframeCodeSkillTree').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/skilltree/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '" height="800px" width="850px" frameborder="0" scrolling="no"></iframe>';
+        document.getElementById('iframeCodeSkillTree').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/skilltree/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '" height="720px" width="850px" frameborder="0" scrolling="no"></iframe>';
 
     }
 
