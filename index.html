@@ -24,6 +24,56 @@
             padding: 10px;
             border-radius: 5px;
             margin-top: 10px;
+            width: clamp(300px, 80%, 800px);
+        }
+
+        #controls {
+            display: grid;
+            grid-template-columns: auto 100px;
+            margin-bottom: 10px;
+            width: 400px;
+            gap: 5px;
+        }
+
+        #controls input {
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #controls button {
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+
+        #controls select {
+            width: 100%;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: white;
+            width: clamp(300px, 80%, 800px);
+            border-bottom: 2px solid white;
+            font-size: 3em;
+        }
+
+        h2 {
+            color: white;
+            width: clamp(300px, 80%, 800px);
+            font-size: 2em;
+        }
+
+        h3 {
+            color: white;
+            width: clamp(300px, 80%, 800px);
+            font-size: 1.5em;
+            text-align: center;
         }
     </style>
 
@@ -49,10 +99,22 @@
         <option value="de_de" selected>Deutsch</option>
     </select>
 </div>
+
+<h1>Inventory Viewer</h1>
+
 <div id="showHere"></div>
+
+<h3>Code für das Iframe</h3>
 <code id="iframeCode"></code>
 
+<h1>SkillTree</h1>
+
+<h2>Alte Version</h2>
 <div id="skillTree"></div>
+<h2>Neue Version</h2>
+<div id="skillTree2"></div>
+
+<h3>Code für das Iframe</h3>
 <code id="iframeCodeSkillTree"></code>
 
 <script>
@@ -80,6 +142,18 @@
 
         document.getElementById('skillTree').innerHTML = '';
         document.getElementById('skillTree').appendChild(iframeSkillTree);
+
+
+        //skilltreeV2
+        var iframeSkillTree2 = document.createElement('iframe');
+        iframeSkillTree2.setAttribute('src', 'skilltreeV2/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value);
+        iframeSkillTree2.setAttribute('height', '750px');
+        iframeSkillTree2.setAttribute('width', '850px');
+        iframeSkillTree2.setAttribute('frameborder', '0');
+        iframeSkillTree2.setAttribute('scrolling', 'no');
+
+        document.getElementById('skillTree2').innerHTML = '';
+        document.getElementById('skillTree2').appendChild(iframeSkillTree2);
 
         //erstelle den Code für das Iframe
         document.getElementById('iframeCodeSkillTree').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/skilltree/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '" height="730px" width="850px" frameborder="0" scrolling="no"></iframe>';

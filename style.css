@@ -9,36 +9,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#controls {
-    display: grid;
-    grid-template-columns: auto 100px;
-    margin-bottom: 10px;
-    width: 400px;
-}
-
-#controls input {
-    padding: 5px;
-    border-top: 1px solid #838383;
-    border-bottom: 1px solid #838383;
-    border-left: 1px solid #838383;
-    border-right: none;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    font-size: 16px;
-}
-
-#controls button {
-    padding: 5px;
-    border-top: 1px solid #838383;
-    border-bottom: 1px solid #838383;
-    border-right: 1px solid #838383;
-    border-left: none;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
 
 #inventory {
     background-image: url('inventory.png');
