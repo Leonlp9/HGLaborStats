@@ -1,61 +1,20 @@
 
-async function getStats(uuid) {
-    const response = await fetch(`https://api.hglabor.de/stats/ffa/${uuid}`);
-    const data = await response.json();
-    console.log(data);
+async function getStats(uuid, mode) {
+    const response = await fetch(`https://api.hglabor.de/ffa/inventory/${uuid}/${mode}`);
+    try {
+        const data = await response.json();
+        return data;
+    }catch (e) {
+        const main = Array(36).fill("EMPTY");
 
-    data.inventory = {
-        "version": 0,
-        "armor": [
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_boots\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_leggings\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_chestplate\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:diamond_helmet\"\n}"
-        ],
-        "offhand": [
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:shield\"\n}"
-        ],
-        "main": [
-            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:sharpness\": 1\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_sword\"\n}",
-            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_axe\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 6,\n    id: \"minecraft:golden_apple\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:cobblestone\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 8,\n    id: \"minecraft:cobweb\"\n}",
-            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:power\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:bow\"\n}",
-            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:piercing\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:crossbow\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:arrow\"\n}",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:enchantments\": {\n            levels: {\n                \"minecraft:efficiency\": 1,\n                \"minecraft:unbreaking\": 3\n            }\n        }\n    },\n    count: 1,\n    id: \"minecraft:diamond_pickaxe\"\n}",
-            "EMPTY",
-            "EMPTY",
-            "{\n    data: [],\n    palette: [],\n    components: {\n        \"minecraft:custom_name\": '{\"extra\":[{\"bold\":true,\"italic\":false,\"text\":\"Tracker\"}],\"text\":\"\"}'\n    },\n    count: 1,\n    id: \"minecraft:compass\"\n}",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "{\n    data: [],\n    palette: [],\n    count: 16,\n    id: \"minecraft:cooked_beef\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:water_bucket\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 1,\n    id: \"minecraft:lava_bucket\"\n}",
-            "{\n    data: [],\n    palette: [],\n    count: 64,\n    id: \"minecraft:oak_planks\"\n}",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY"
-        ]
-    };
+        main[22] = '{\n    "data": [],\n    "palette": [],\n    "components": {\n        "minecraft:custom_name": \'{"extra":[{"bold":true,"italic":false,"text":"Der Spieler hat für diesen Modus<br>sein Inventar noch nicht bearbeitet."}],"text":""}\'\n    },\n    "count": 1,\n    "id": "minecraft:barrier"\n}';
 
-    return data;
+        return {
+            main: main,
+            offhand: ["EMPTY"],
+            armor: ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]
+        };
+    }
 }
 
 // Funktion, die den String in gültiges JSON transformiert
@@ -69,11 +28,11 @@ function fixJson(str) {
     return fixed;
 }
 
-async function renderInventory(uuid, lang = "de_de") {
+async function renderInventory(uuid, mode, lang = "de_de") {
     const itemData = await fetch(lang + ".json").then(response => response.json());
-    const data = await getStats(uuid);
+    const data = await getStats(uuid, mode);
     try {
-        const { main, offhand, armor } = data.inventory;
+        const { main, offhand, armor } = data;
         armor.reverse();
 
         const hotbar = document.getElementById("hotbar");     // main slot 0-8
@@ -154,6 +113,13 @@ async function renderInventory(uuid, lang = "de_de") {
                             }
                             if (top + tooltipHeight > pageHeight) {
                                 top = e.pageY - tooltipHeight - 10;
+                            }
+
+                            if (left < 0) {
+                                left = 0;
+                            }
+                            if (top < 0) {
+                                top = 0;
                             }
 
                             slot._tooltip.style.left = left + "px";
@@ -250,7 +216,8 @@ function getItemName(id, data) {
 const urlParams = new URLSearchParams(window.location.search);
 const uuid = urlParams.get('uuid');
 const lang = urlParams.get('lang') || "de_de";
-renderInventory(uuid, lang).then(() => console.log("done"));
+const mode = urlParams.get('mode') || "UHC";
+renderInventory(uuid, mode, lang).then(() => console.log("done"));
 
 function convertMinecraftFormatting(component) {
     let html = "";

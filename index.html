@@ -39,13 +39,17 @@
 <body>
 <div id="controls">
     <input type="text" id="uuid" placeholder="UUID" value="202bd80d-1cae-4812-a028-42b0a478346e">
+    <select id="mode">
+        <option value="UHC" selected>UHC</option>
+        <option value="Soup">Soup</option>
+    </select>
     <button id="load" onclick="load()">Load</button>
     <select id="lang">
         <option value="en_us">English</option>
         <option value="de_de" selected>Deutsch</option>
     </select>
 </div>
-<h2 style="background: #f0f0f0; color: red; width: 850px; margin: auto 10px 10px; padding: 10px; border-radius: 5px">Die API wird derzeit von Enrico bearbeitet, damit das Inventar eine eigene API-Route erhält. Deshalb wird nur mein Inventar angezeigt, das ich irgendwann einmal gespeichert habe.</h2><div id="showHere"></div>
+<div id="showHere"></div>
 <code id="iframeCode"></code>
 
 <div id="skillTree"></div>
@@ -55,7 +59,7 @@
     function load() {
         //erstelle ein neues Iframe Element und setze die Attribute
         var iframe = document.createElement('iframe');
-        iframe.setAttribute('src', 'inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value);
+        iframe.setAttribute('src', 'inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '&mode=' + document.getElementById('mode').value);
         iframe.setAttribute('height', '800px');
         iframe.setAttribute('width', '850px');
         iframe.setAttribute('frameborder', '0');
@@ -65,8 +69,7 @@
         document.getElementById('showHere').appendChild(iframe);
 
         //erstelle den Code für das Iframe
-        document.getElementById('iframeCode').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '" height="800px" width="850px" frameborder="0" scrolling="no"></iframe>';
-
+        document.getElementById('iframeCode').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '&mode=' + document.getElementById('mode').value + '" height="800px" width="850px" frameborder="0" scrolling="no"></iframe>';
 
         var iframeSkillTree = document.createElement('iframe');
         iframeSkillTree.setAttribute('src', 'skilltree/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value);

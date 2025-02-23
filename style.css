@@ -11,9 +11,9 @@ body {
 
 #controls {
     display: grid;
-    grid-template-columns: auto 50px;
+    grid-template-columns: auto 100px;
     margin-bottom: 10px;
-    width: 350px;
+    width: 400px;
 }
 
 #controls input {
