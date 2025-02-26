@@ -70,7 +70,29 @@ async function renderInventory(uuid, mode, lang = "de_de") {
                     const image = document.createElement("img");
                     image.src = `item/${id}.png`;
                     image.alt = item.displayName || id;
-                    image.onerror = () => slot.style.backgroundImage = `url(block/${id}.png)`;
+                    image.onerror = () => {
+
+                        const renderBlocks2d = ["cobweb"];
+
+                        if (renderBlocks2d.includes(id)) {
+                            slot.style.background = `url(block/${id}.png)`;
+                            slot.style.backgroundSize = "cover";
+                        }else {
+                            slot.style.background = "transparent";
+                            //erstelle 3D Item aus 3 Bildern
+                            const item3d = document.createElement("div");
+                            item3d.classList.add("item3d");
+                            for (let i = 0; i < 3; i++) {
+                                const img = document.createElement("div");
+                                img.style.backgroundImage = `url(block/${id}.png)`;
+                                img.style.backgroundSize = "cover";
+                                item3d.appendChild(img);
+                            }
+                            slot.appendChild(item3d);
+                        }
+
+
+                    }
 
                     slot.addEventListener("mouseover", (e) => {
                         const tooltip = document.createElement("div");
