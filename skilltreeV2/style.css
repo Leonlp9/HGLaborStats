@@ -87,13 +87,25 @@ body {
 #windowContent #xp {
     margin-left: 25px;
     margin-right: 25px;
-    margin-bottom: 10px;
     color: #7dfa20;
     text-shadow: 0.3vmin 0 0 #010501, 0 0.3vmin 0 #010501, -0.3vmin 0 0 #010501, 0 -0.3vmin 0 #010501;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2vmin;
+}
+
+#title #titleText {
+    font-size: 2.5vmin;
+    margin: 0;
+    font-weight: normal;
+    color: #7f7f7f;
+}
+
+#title #subtitle {
+    font-size: 1.5vmin;
+    margin: 0;
+    color: #7f7f7f;
 }
 
 #skills {
@@ -119,7 +131,7 @@ body {
 
 #skillsBackground {
     background: url("../block/dirt.png") repeat scroll;
-    background-size: 5vmin;
+    background-size: 8vmin;
     width: 1700px;
     height: 2000px;
 }

@@ -7,25 +7,40 @@ canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
 //draw lines
-function drawLine(x1, y1, x2, y2) {
+function drawLine(x1, y1, x2, y2, percentFilled = 0) {
 
     //stroke size
-    ctx.lineWidth = 6;
-
+    ctx.lineWidth = 10;
+    //stroke color
+    ctx.strokeStyle = '#080300';
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
     ctx.stroke();
+
+    //draw filled line
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#11f713';
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 + (x2 - x1) * percentFilled, y1 + (y2 - y1) * percentFilled);
+    ctx.stroke();
+
+    //fill the rest of the line
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#49494a';
+    ctx.beginPath();
+    ctx.moveTo(x1 + (x2 - x1) * percentFilled, y1 + (y2 - y1) * percentFilled);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
 }
 
-drawLine(0, 0, 200, 200);
-drawLine(200, 200, 400, 0);
-drawLine(400, 0, 600, 200);
-drawLine(600, 200, 800, 0);
-
-drawLine(200, 300, 1000, 1000);
-drawLine(1000, 1000, 1200, 800);
-drawLine(1200, 800, 1400, 1000);
+drawLine(50, 0, 50, 200, 0.0);
+drawLine(100, 0, 100, 200, 0.2);
+drawLine(150, 0, 150, 200, 0.4);
+drawLine(200, 0, 200, 200, 0.6);
+drawLine(250, 0, 250, 200, 0.8);
+drawLine(300, 0, 300, 200, 1.0);
 
 function enableDragScroll(element) {
     let isDown = false;
