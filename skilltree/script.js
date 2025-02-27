@@ -35,13 +35,6 @@ function drawLine(x1, y1, x2, y2, percentFilled = 0) {
     ctx.stroke();
 }
 
-drawLine(50, 50, 50, 200, 0.0);
-drawLine(100, 50, 100, 200, 0.2);
-drawLine(150, 50, 150, 200, 0.4);
-drawLine(300, 50, 200, 200, 0.6);
-drawLine(300, 50, 400, 200, 0.8);
-drawLine(400, 50, 500, 200, 1.0);
-
 function enableDragScroll(element) {
     let isDown = false;
     let startX;
@@ -84,12 +77,14 @@ function enableDragScroll(element) {
 let stats;
 let heros = [];
 let selectedHero = null;
+let selectedTabIndex = 0;
 
 async function fetchStats(uuid) {
     const response = await fetch(`https://api.hglabor.de/stats/ffa/${uuid}`);
     stats = await response.json();
 
-    //set xp
+    console.log(stats);
+
     document.getElementById('xp').innerText = stats.xp;
 }
 
@@ -103,108 +98,209 @@ async function fetchHeros() {
         heros.push(hero);
     }
 
-    selectedHero = heros[1];
+    selectedHero = heros[0];
 
     createBottomTabs();
     createTopTabs();
-    console.log(heros);
+    renderSkills();
 
     fetchStats("202bd80d-1cae-4812-a028-42b0a478346e").then();
 }
+
 let translationsAndIcons = {
+    "aang": {
+        "name": "§6§lAang",
+        "description": "Aang is the last Airbender and the Avatar. He is a master of Airbending and has a strong connection to the spirit world.",
+    },
+    "katara": {
+        "name": "§b§lKatara",
+        "description": "Katara is a Waterbender from the Southern Water Tribe. She is a master of Waterbending and has a strong sense of justice.",
+    },
+    "toph": {
+        "name": "§a§lToph",
+        "description": "Toph is an Earthbender and the greatest Earthbender in the world. She is a master of Metalbending.",
+    },
+
     "air_scooter": {
         "icon": "item/wind_charge.png",
         "name": "Air Scooter",
-        "description": "Air Scooter is a basic Airbending ability. It allows the user to create a gust of wind that propels them forward."
+        "description": "Air Scooter is a basic Airbending ability. It allows the user to create a gust of wind that propels them forward.",
+        "windowBackground": "block/quartz_block_bottom.png"
     },
     "tornado": {
         "icon": "item/string.png",
         "name": "Tornado",
-        "description": "Tornado is a powerful Airbending ability. It allows the user to create a tornado that sucks in entities and blocks."
+        "description": "Tornado is a powerful Airbending ability. It allows the user to create a tornado that sucks in entities and blocks.",
+        "windowBackground": "block/quartz_block_bottom.png"
     },
     "air_ball": {
         "icon": "item/wind_charge.png",
         "name": "Air Ball",
-        "description": "Air Ball is a basic Airbending ability. It allows the user to create a ball of air that can be thrown at entities."
+        "description": "Air Ball is a basic Airbending ability. It allows the user to create a ball of air that can be thrown at entities.",
+        "windowBackground": "block/quartz_block_bottom.png"
     },
     "levitation": {
         "icon": "item/wind_charge.png",
         "name": "Levitation",
-        "description": "Levitation is a basic Airbending ability. It allows the user to levitate in the air."
+        "description": "Levitation is a basic Airbending ability. It allows the user to levitate in the air.",
+        "windowBackground": "block/quartz_block_bottom.png"
     },
     "spiritual_projection": {
         "icon": "item/wind_charge.png",
         "name": "Spiritual Projection",
-        "description": "Spiritual Projection is a powerful Airbending ability. It allows the user to project their spirit out of their body."
+        "description": "Spiritual Projection is a powerful Airbending ability. It allows the user to project their spirit out of their body.",
+        "windowBackground": "block/quartz_block_bottom.png"
     },
 
 
     "earth_surf": {
         "icon": "block/dirt.png",
         "name": "Earth Surf",
-        "description": "Earth Surf is a basic Earthbending ability. It allows the user to surf on a block of earth."
+        "description": "Earth Surf is a basic Earthbending ability. It allows the user to surf on a block of earth.",
+        "windowBackground": "block/dirt.png"
     },
     "earth_column": {
         "icon": "block/dirt.png",
         "name": "Earth Column",
-        "description": "Earth Column is a basic Earthbending ability. It allows the user to create a column of earth."
+        "description": "Earth Column is a basic Earthbending ability. It allows the user to create a column of earth.",
+        "windowBackground": "block/dirt.png"
     },
     "earth_push": {
         "icon": "block/dirt.png",
         "name": "Earth Push",
-        "description": "Earth Push is a basic Earthbending ability. It allows the user to push entities away."
+        "description": "Earth Push is a basic Earthbending ability. It allows the user to push entities away.",
+        "windowBackground": "block/dirt.png"
     },
     "earth_armor": {
         "icon": "block/dirt.png",
         "name": "Earth Armor",
-        "description": "Earth Armor is a basic Earthbending ability. It allows the user to create armor out of earth."
+        "description": "Earth Armor is a basic Earthbending ability. It allows the user to create armor out of earth.",
+        "windowBackground": "block/dirt.png"
     },
     "earth_trap": {
         "icon": "block/dirt.png",
         "name": "Earth Trap",
-        "description": "Earth Trap is a basic Earthbending ability. It allows the user to create a trap out of earth."
+        "description": "Earth Trap is a basic Earthbending ability. It allows the user to create a trap out of earth.",
+        "windowBackground": "block/dirt.png"
     },
     "seismic_sense": {
         "icon": "block/dirt.png",
         "name": "Seismic Sense",
-        "description": "Seismic Sense is a basic Earthbending ability. It allows the user to sense vibrations in the earth."
+        "description": "Seismic Sense is a basic Earthbending ability. It allows the user to sense vibrations in the earth.",
+        "windowBackground": "block/dirt.png"
     },
 
 
     "healing": {
         "icon": "item/diamond.png",
         "name": "Healing",
-        "description": "Healing is a basic Waterbending ability. It allows the user to heal themselves or others."
+        "description": "Healing is a basic Waterbending ability. It allows the user to heal themselves or others.",
+        "windowBackground": "block/ice.png"
     },
     "ice_shards": {
         "icon": "block/ice.png",
         "name": "Ice Shards",
-        "description": "Ice Shards is a basic Waterbending ability. It allows the user to shoot shards of ice at entities."
+        "description": "Ice Shards is a basic Waterbending ability. It allows the user to shoot shards of ice at entities.",
+        "windowBackground": "block/ice.png"
     },
     "water_bending": {
         "icon": "item/diamond.png",
         "name": "Water Bending",
-        "description": "Water Bending is a basic Waterbending ability. It allows the user to manipulate water."
+        "description": "Water Bending is a basic Waterbending ability. It allows the user to manipulate water.",
+        "windowBackground": "block/ice.png"
     },
     "water_circle": {
         "icon": "item/diamond.png",
         "name": "Water Circle",
-        "description": "Water Circle is a basic Waterbending ability. It allows the user to create a circle of water."
+        "description": "Water Circle is a basic Waterbending ability. It allows the user to create a circle of water.",
+        "windowBackground": "block/ice.png"
     },
     "water_forming": {
         "icon": "item/diamond.png",
         "name": "Water Forming",
-        "description": "Water Forming is a basic Waterbending ability. It allows the user to form water into various shapes."
+        "description": "Water Forming is a basic Waterbending ability. It allows the user to form water into various shapes.",
+        "windowBackground": "block/ice.png"
     },
     "water_pillar": {
         "icon": "item/diamond.png",
         "name": "Water Pillar",
-        "description": "Water Pillar is a basic Waterbending ability. It allows the user to create a pillar of water."
+        "description": "Water Pillar is a basic Waterbending ability. It allows the user to create a pillar of water.",
+        "windowBackground": "block/ice.png"
     },
 }
 
+/**
+ * Shows the properties of the selected hero
+ */
+function createTopTabs() {
+    const tabContainer = document.getElementById('window');
+
+    //löscht alle tabs die nicht mehr gebraucht werden
+    for (let i = 0; i < 10; i++) {
+        if (document.getElementById('topTab' + i)) {
+            document.getElementById('topTab' + i).remove();
+        }
+    }
+
+    const tabCount = Object.keys(selectedHero.properties).length;
+    for (let i = 0; i < tabCount; i++) {
+        if (!document.getElementById('topTab' + i)) {
+            const tab = document.createElement('div');
+            tab.className = 'tab top' + (i === selectedTabIndex ? ' selected' : '') + (i === 0 ? ' left' : '');
+            tab.style.left = `calc(100%/9.3*${i})`;
+            tab.id = 'topTab' + i;
+
+            if (translationsAndIcons[Object.keys(selectedHero.properties)[i]].icon.startsWith('item/')) {
+                const tabIcon = document.createElement('img');
+                tabIcon.src = '../' + translationsAndIcons[Object.keys(selectedHero.properties)[i]].icon;
+                tabIcon.className = 'tabIcon';
+                tab.appendChild(tabIcon);
+            }else {
+                const item3d = document.createElement("div");
+                item3d.classList.add("item3d");
+                for (let j = 0; j < 3; j++) {
+                    const img = document.createElement("div");
+                    img.style.backgroundImage = `url(../${translationsAndIcons[Object.keys(selectedHero.properties)[i]].icon})`;
+                    img.style.backgroundSize = "cover";
+                    item3d.appendChild(img);
+                }
+                tab.appendChild(item3d);
+            }
+
+            tab.addEventListener('click', () => {
+                selectedTabIndex = i;
+                createTopTabs();
+                //playsound ui_click.wav
+                const audio = new Audio('ui_klick.wav');
+                audio.play();
+            });
+
+            tabContainer.appendChild(tab);
+
+            addTextTooltip(tab, translationsAndIcons[Object.keys(selectedHero.properties)[i]].name);
+        }else {
+            document.getElementById('topTab' + i).classList.remove('selected');
+            if (i === selectedTabIndex) {
+                document.getElementById('topTab' + i).classList.add('selected');
+            }
+            document.getElementById('topTab' + i).getElementsByTagName('img')[0].src = '../' + translationsAndIcons[Object.keys(selectedHero.properties)[i]].icon;
+        }
+    }
+
+    const titleText = document.getElementById('titleText');
+    const subtitle = document.getElementById('subtitle');
+    titleText.innerHTML = translationsAndIcons[Object.keys(selectedHero.properties)[selectedTabIndex]].name;
+    subtitle.innerHTML = translationsAndIcons[Object.keys(selectedHero.properties)[selectedTabIndex]].description;
+
+    document.getElementById('skillsBackground').style.backgroundImage = `url(../${translationsAndIcons[Object.keys(selectedHero.properties)[selectedTabIndex]].windowBackground})`;
+
+    //skills auf x achse in mitte setzen vom scolling
+    const skills = document.getElementById('skills');
+    skills.scrollLeft = (skills.scrollWidth - skills.offsetWidth) / 2;
+
+}
+
 function createBottomTabs() {
-    let tabIndex = 0;
     const tabContainer = document.getElementById('window');
     const tabCount = heros.length;
     for (let i = 0; i < tabCount; i++) {
@@ -230,6 +326,8 @@ function createBottomTabs() {
             });
 
             tabContainer.appendChild(tab);
+
+            addTextTooltip(tab, translationsAndIcons[heros[i].internalKey].name);
         }else {
             document.getElementById('tab' + i).classList.remove('selected');
             if (heros[i] === selectedHero) {
@@ -239,59 +337,10 @@ function createBottomTabs() {
     }
 }
 
-let selectedTabIndex = 0;
-/**
- * Shows the properties of the selected hero
- */
-function createTopTabs() {
-    let topTabIndex = 0;
-    const tabContainer = document.getElementById('window');
-
-    const tabCount = Object.keys(selectedHero.properties).length;
-    for (let i = 0; i < tabCount; i++) {
-        if (!document.getElementById('topTab' + i)) {
-            const tab = document.createElement('div');
-            tab.className = 'tab top' + (i === selectedTabIndex ? ' selected' : '') + (i === 0 ? ' left' : '');
-            tab.style.left = `calc(100%/9.3*${i})`;
-            tab.id = 'topTab' + i;
-
-            const tabIcon = document.createElement('img');
-            tabIcon.src = '../' + translationsAndIcons[Object.keys(selectedHero.properties)[i]].icon;
-            tabIcon.className = 'tabIcon';
-            tab.appendChild(tabIcon);
-
-            tab.addEventListener('click', () => {
-                selectedTabIndex = i;
-                createTopTabs();
-                //playsound ui_click.wav
-                const audio = new Audio('ui_klick.wav');
-                audio.play();
-            });
-
-            tabContainer.appendChild(tab);
-        }else {
-            document.getElementById('topTab' + i).classList.remove('selected');
-            if (i === selectedTabIndex) {
-                document.getElementById('topTab' + i).classList.add('selected');
-            }
-            document.getElementById('topTab' + i).getElementsByTagName('img')[0].src = '../' + translationsAndIcons[Object.keys(selectedHero.properties)[i]].icon;
-        }
-    }
-
-    //löscht alle tabs die nicht mehr gebraucht werden
-    for (let i = tabCount; i < 10; i++) {
-        if (document.getElementById('topTab' + i)) {
-            document.getElementById('topTab' + i).remove();
-        }
-    }
-
-    const titleText = document.getElementById('titleText');
-    const subtitle = document.getElementById('subtitle');
-    titleText.innerHTML = translationsAndIcons[Object.keys(selectedHero.properties)[selectedTabIndex]].name;
-    subtitle.innerHTML = translationsAndIcons[Object.keys(selectedHero.properties)[selectedTabIndex]].description;
-}
-
 function renderSkills(){
+    const skills = document.getElementById('skillsBackground').getElementsByTagName('div');
+    console.log(skills);
+
 
 }
 

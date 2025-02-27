@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>HG Labor - Inventory Viewer</title>
     <script src="https://unpkg.com/skinview3d@3.0.0-alpha.1/bundles/skinview3d.bundle.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inventory/style.css">
     <style>
         body {
             background-image: url('https://steamuserimages-a.akamaihd.net/ugc/2310974141604980016/B4EF3A7A2D1772DE26B1A6F51CE33A04FD8BB917/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');
@@ -121,7 +121,7 @@
     function load() {
         //erstelle ein neues Iframe Element und setze die Attribute
         var iframe = document.createElement('iframe');
-        iframe.setAttribute('src', 'inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '&mode=' + document.getElementById('mode').value);
+        iframe.setAttribute('src', 'inventory/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '&mode=' + document.getElementById('mode').value);
         iframe.setAttribute('height', '800px');
         iframe.setAttribute('width', '850px');
         iframe.setAttribute('frameborder', '0');
@@ -131,7 +131,7 @@
         document.getElementById('showHere').appendChild(iframe);
 
         //erstelle den Code für das Iframe
-        document.getElementById('iframeCode').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/inventory.html?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '&mode=' + document.getElementById('mode').value + '" height="800px" width="850px" frameborder="0" scrolling="no"></iframe>';
+        document.getElementById('iframeCode').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/inventory/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '&mode=' + document.getElementById('mode').value + '" height="800px" width="850px" frameborder="0" scrolling="no"></iframe>';
 
         var iframeSkillTree = document.createElement('iframe');
         iframeSkillTree.setAttribute('src', 'skilltree/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value);

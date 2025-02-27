@@ -65,17 +65,17 @@ async function renderInventory(uuid, mode, lang = "de_de") {
                 if (item) {
                     const id = item.id.split(":")[1];
 
-                    slot.style.backgroundImage = `url(item/${id}.png)`;
+                    slot.style.backgroundImage = `url(../item/${id}.png)`;
 
                     const image = document.createElement("img");
-                    image.src = `item/${id}.png`;
+                    image.src = `../item/${id}.png`;
                     image.alt = item.displayName || id;
                     image.onerror = () => {
 
                         const renderBlocks2d = ["cobweb"];
 
                         if (renderBlocks2d.includes(id)) {
-                            slot.style.background = `url(block/${id}.png)`;
+                            slot.style.background = `url(../block/${id}.png)`;
                             slot.style.backgroundSize = "cover";
                         }else {
                             slot.style.background = "transparent";
@@ -84,7 +84,7 @@ async function renderInventory(uuid, mode, lang = "de_de") {
                             item3d.classList.add("item3d");
                             for (let i = 0; i < 3; i++) {
                                 const img = document.createElement("div");
-                                img.style.backgroundImage = `url(block/${id}.png)`;
+                                img.style.backgroundImage = `url(../block/${id}.png)`;
                                 img.style.backgroundSize = "cover";
                                 item3d.appendChild(img);
                             }
@@ -94,68 +94,7 @@ async function renderInventory(uuid, mode, lang = "de_de") {
 
                     }
 
-                    slot.addEventListener("mouseover", (e) => {
-                        const tooltip = document.createElement("div");
-                        tooltip.classList.add("tooltip");
-
-                        // Verwende den 'minecraft:custom_name'-Component, falls vorhanden
-                        const rawName = item.components?.["minecraft:custom_name"] || getItemName(id, itemData) || id;
-
-                        const nameElement = document.createElement("div");
-                        // Wenn es ein Component (Formatierungscodes) ist, als HTML rendern
-                        if (item.components?.["minecraft:custom_name"]) {
-                            nameElement.innerHTML = convertMinecraftFormatting(rawName);
-                        } else {
-                            nameElement.textContent = rawName;
-                        }
-                        tooltip.appendChild(nameElement);
-
-                        const idElement = document.createElement("div");
-                        idElement.classList.add("id");
-                        idElement.textContent = item.id;
-                        tooltip.appendChild(idElement);
-
-                        document.body.appendChild(tooltip);
-                        slot._tooltip = tooltip;
-                    });
-
-                    // Tooltip folgt der Maus
-                    slot.addEventListener("mousemove", (e) => {
-                        if (slot._tooltip) {
-                            const tooltipWidth = slot._tooltip.offsetWidth;
-                            const tooltipHeight = slot._tooltip.offsetHeight;
-                            const pageWidth = window.innerWidth;
-                            const pageHeight = window.innerHeight;
-
-                            let left = e.pageX + 10;
-                            let top = e.pageY + 10;
-
-                            if (left + tooltipWidth > pageWidth) {
-                                left = e.pageX - tooltipWidth - 10;
-                            }
-                            if (top + tooltipHeight > pageHeight) {
-                                top = e.pageY - tooltipHeight - 10;
-                            }
-
-                            if (left < 0) {
-                                left = 0;
-                            }
-                            if (top < 0) {
-                                top = 0;
-                            }
-
-                            slot._tooltip.style.left = left + "px";
-                            slot._tooltip.style.top = top + "px";
-                        }
-                    });
-
-                    // Tooltip entfernen, wenn die Maus das Slot verlässt
-                    slot.addEventListener("mouseout", () => {
-                        if (slot._tooltip) {
-                            slot._tooltip.remove();
-                            slot._tooltip = null;
-                        }
-                    });
+                    addHoverEffect(slot, item, id, itemData);
 
                     if (parseInt(item.count) > 1) {
                         const amount = document.createElement("div");
@@ -240,49 +179,3 @@ const uuid = urlParams.get('uuid');
 const lang = urlParams.get('lang') || "de_de";
 const mode = urlParams.get('mode') || "UHC";
 renderInventory(uuid, mode, lang).then(() => console.log("done"));
-
-function convertMinecraftFormatting(component) {
-    let html = "";
-    const colorMapping = {
-        'black': '#000000',
-        'dark_blue': '#0000AA',
-        'dark_green': '#00AA00',
-        'dark_aqua': '#00AAAA',
-        'dark_red': '#AA0000',
-        'dark_purple': '#AA00AA',
-        'gold': '#FFAA00',
-        'gray': '#AAAAAA',
-        'dark_gray': '#555555',
-        'blue': '#5555FF',
-        'green': '#55FF55',
-        'aqua': '#55FFFF',
-        'red': '#FF5555',
-        'light_purple': '#FF55FF',
-        'yellow': '#FFFF55',
-        'white': '#FFFFFF'
-    };
-
-    if (typeof component === "string") {
-        component = JSON.parse(component);
-    }
-
-    const text = component.text || "";
-    console.log(component);
-
-    if (component.extra) {
-        component.extra.forEach(extra => {
-            html += convertMinecraftFormatting(extra);
-        });
-    }
-
-    let classes = [];
-    if (component.bold) classes.push("bold");
-    if (component.italic) classes.push("italic");
-    if (component.underlined) classes.push("underlined");
-    if (component.strikethrough) classes.push("strikethrough");
-
-    html += `<span class="${classes.join(" ")}" style="color: ${colorMapping[component.color] || component.color || "inherit"}">${text}</span>`;
-
-
-    return html;
-}

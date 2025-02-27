@@ -166,3 +166,44 @@ body {
     height: 100%;
     pointer-events: none;
 }
+
+.item3d {
+    width: 100%;         /* Blockbreite/Höhe anpassen */
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: perspective(9999px) rotateX(-30deg) rotateY(-45deg) translate(10%, 20%) scale3d(0.6, 0.6, 0.6);
+}
+
+.selected .item3d {
+    transform: perspective(9999px) rotateX(-30deg) rotateY(-45deg) translate(10%, 10%) scale3d(0.6, 0.6, 0.6);
+}
+
+.item3d div {
+    position: absolute;
+    width: calc(min(100vw / 16, 100vh / 15.1) * 16 * 0.08);
+    height: calc(min(100vw / 16, 100vh / 15.1) * 15.1 * 0.08);
+    background-size: cover;
+    background-position: center;
+    backface-visibility: inherit;
+    transform-origin: center;
+    image-rendering: pixelated;
+}
+
+/* "Deckel" */
+.item3d div:nth-child(1) {
+    transform: translateZ(calc(min(100vw / 16, 100vh / 15.1) * 15.1 * 0.04));
+    filter: brightness(0.8);
+}
+
+/* "Front" */
+.item3d div:nth-child(2) {
+    transform: rotateY(90deg) translateZ(calc(min(100vw / 16, 100vh / 15.1) * 15.1 * 0.04));
+    filter: brightness(0.7);
+}
+
+/* "Seite" */
+.item3d div:nth-child(3) {
+    transform: rotateX(90deg) translateZ(calc(min(100vw / 16, 100vh / 15.1) * 15.1 * 0.04));
+    filter: brightness(1);
+}

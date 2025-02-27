@@ -1,0 +1,35 @@
+.tooltip {
+    position: absolute;
+    background: rgba(26, 9, 46, 0.85);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 1000;
+    font-size: 24px;
+    font-family: Minecraft, sans-serif;
+    border: 2px solid #380b6a;
+    user-select: none;
+    text-shadow: 3px 3px 0px #2b2b2b;
+}
+
+.tooltip .bold {
+    font-weight: bold;
+}
+
+.tooltip .underline {
+    text-decoration: underline;
+}
+
+.tooltip .italic {
+    font-style: italic;
+}
+
+.tooltip .strikethrough {
+    text-decoration: line-through;
+}
+
+.tooltip .id {
+    color: #555555;
+}
+
