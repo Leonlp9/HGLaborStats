@@ -148,7 +148,7 @@ let translationsAndIcons = {
         "windowBackground": "block/quartz_block_bottom.png"
     },
     "levitation": {
-        "icon": "item/wind_charge.png",
+        "icon": "item/feather.png",
         "name": "Levitation",
         "description": "Levitation is a basic Airbending ability. It allows the user to levitate in the air.",
         "windowBackground": "block/quartz_block_bottom.png"
@@ -162,40 +162,40 @@ let translationsAndIcons = {
 
 
     "earth_surf": {
-        "icon": "block/dirt.png",
+        "icon": "item/iron_boots.png",
         "name": "Earth Surf",
         "description": "Earth Surf is a basic Earthbending ability. It allows the user to surf on a block of earth.",
-        "windowBackground": "block/dirt.png"
+        "windowBackground": "block/packed_mud.png"
     },
     "earth_column": {
-        "icon": "block/dirt.png",
+        "icon": "block/stone.png",
         "name": "Earth Column",
         "description": "Earth Column is a basic Earthbending ability. It allows the user to create a column of earth.",
-        "windowBackground": "block/dirt.png"
+        "windowBackground": "block/packed_mud.png"
     },
     "earth_push": {
         "icon": "block/dirt.png",
         "name": "Earth Push",
         "description": "Earth Push is a basic Earthbending ability. It allows the user to push entities away.",
-        "windowBackground": "block/dirt.png"
+        "windowBackground": "block/packed_mud.png"
     },
     "earth_armor": {
-        "icon": "block/dirt.png",
+        "icon": "item/iron_chestplate.png",
         "name": "Earth Armor",
         "description": "Earth Armor is a basic Earthbending ability. It allows the user to create armor out of earth.",
-        "windowBackground": "block/dirt.png"
+        "windowBackground": "block/packed_mud.png"
     },
     "earth_trap": {
         "icon": "block/dirt.png",
         "name": "Earth Trap",
         "description": "Earth Trap is a basic Earthbending ability. It allows the user to create a trap out of earth.",
-        "windowBackground": "block/dirt.png"
+        "windowBackground": "block/packed_mud.png"
     },
     "seismic_sense": {
         "icon": "block/dirt.png",
         "name": "Seismic Sense",
         "description": "Seismic Sense is a basic Earthbending ability. It allows the user to sense vibrations in the earth.",
-        "windowBackground": "block/dirt.png"
+        "windowBackground": "block/packed_mud.png"
     },
 
 
@@ -261,7 +261,7 @@ let translationsAndIcons = {
         "type": "task",
     },
     "radius": {
-        "icon": "item/spyglass.png",
+        "icon": "item/stone_shovel.png",
         "type": "task",
     },
     "speed": {
@@ -290,6 +290,10 @@ let translationsAndIcons = {
     },
     "armor": {
         "icon": "item/diamond_chestplate.png",
+        "type": "task",
+    },
+    "water_forming_max_blocks": {
+        "icon": "block/ice.png",
         "type": "task",
     }
 }

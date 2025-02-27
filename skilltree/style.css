@@ -193,13 +193,13 @@ body {
 /* "Deckel" */
 .item3d div:nth-child(1) {
     transform: translateZ(calc(min(100vw / 16, 100vh / 15.1) * 15.1 * 0.04));
-    filter: brightness(0.8);
+    filter: brightness(0.7);
 }
 
 /* "Front" */
 .item3d div:nth-child(2) {
     transform: rotateY(90deg) translateZ(calc(min(100vw / 16, 100vh / 15.1) * 15.1 * 0.04));
-    filter: brightness(0.7);
+    filter: brightness(0.45);
 }
 
 /* "Seite" */
