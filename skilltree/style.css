@@ -249,3 +249,13 @@ body {
     margin: 15%;
     pointer-events: none;
 }
+
+.skillName {
+    position: absolute;
+    transform: translateX(-50%) translateY(-100%);
+    color: #fdfdfd;
+    text-shadow: 0.3vmin 0.3vmin 0 #010501;
+    width: 140px;
+    text-align: center;
+    font-size: 2.5vmin;
+}

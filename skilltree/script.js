@@ -349,386 +349,23 @@ function createBottomTabs() {
 
 function renderSkills(){
     console.log(selectedHero.properties);
-    //{
-    //     "healing": [
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 90,
-    //             "maxLevel": 4,
-    //             "name": "Cooldown",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     -10,
-    //                     -10,
-    //                     -10,
-    //                     -10
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.SingleUseProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 0,
-    //             "name": "Use",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": [
-    //                     0
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.NumberProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 2,
-    //             "name": "Regeneration",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     1,
-    //                     1
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.NumberProperty",
-    //             "baseValue": 5,
-    //             "maxLevel": 4,
-    //             "name": "Max Duration Lasts",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     1,
-    //                     1,
-    //                     1,
-    //                     1
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         }
-    //     ],
-    //     "water_pillar": [
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 20,
-    //             "maxLevel": 4,
-    //             "name": "Cooldown",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     -5,
-    //                     -5,
-    //                     -2,
-    //                     -3
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.SingleUseProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 0,
-    //             "name": "Use",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": [
-    //                     0
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 10,
-    //             "maxLevel": 5,
-    //             "name": "Max Duration",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     0.1,
-    //                     0.4,
-    //                     0.2,
-    //                     0.8,
-    //                     1.5,
-    //                     1
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.NumberProperty",
-    //             "baseValue": 15,
-    //             "maxLevel": 5,
-    //             "name": "Water Pillar Distance",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     3,
-    //                     3,
-    //                     3,
-    //                     3,
-    //                     3
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.NumberProperty",
-    //             "baseValue": 1,
-    //             "maxLevel": 5,
-    //             "name": "Water Pillar Start Boost",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": [
-    //                     1,
-    //                     1.2,
-    //                     1.4,
-    //                     1.5,
-    //                     1.8,
-    //                     1.9
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         }
-    //     ],
-    //     "water_bending": [
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 10,
-    //             "maxLevel": 5,
-    //             "name": "Cooldown",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     -1,
-    //                     -1,
-    //                     -1,
-    //                     -1,
-    //                     -1
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.SingleUseProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 0,
-    //             "name": "Use",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": [
-    //                     0
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 10,
-    //             "maxLevel": 5,
-    //             "name": "Max Duration",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     2,
-    //                     1,
-    //                     0.5,
-    //                     0.5,
-    //                     1
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         }
-    //     ],
-    //     "ice_shards": [
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 26,
-    //             "maxLevel": 4,
-    //             "name": "Cooldown",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     -2,
-    //                     -2,
-    //                     -2,
-    //                     -2
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.SingleUseProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 0,
-    //             "name": "Use",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": [
-    //                     0
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 0.5,
-    //             "maxLevel": 5,
-    //             "name": "Max Duration",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     0.25,
-    //                     0.25,
-    //                     0.25,
-    //                     0.25,
-    //                     0.25
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         }
-    //     ],
-    //     "water_forming": [
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 10,
-    //             "maxLevel": 5,
-    //             "name": "Cooldown",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     -0.1,
-    //                     -0.4,
-    //                     -0.2,
-    //                     -0.8,
-    //                     -1.5,
-    //                     -1
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.SingleUseProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 0,
-    //             "name": "Use",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": [
-    //                     0
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 10,
-    //             "maxLevel": 5,
-    //             "name": "Max Duration",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     0.1,
-    //                     0.4,
-    //                     0.2,
-    //                     0.8,
-    //                     1.5,
-    //                     1
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.NumberProperty",
-    //             "baseValue": 10,
-    //             "maxLevel": 3,
-    //             "name": "Water Forming Max Blocks",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     5,
-    //                     5,
-    //                     5
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         }
-    //     ],
-    //     "water_circle": [
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.CooldownProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 0,
-    //             "name": "NoCooldown",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": []
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.SingleUseProperty",
-    //             "baseValue": 0,
-    //             "maxLevel": 0,
-    //             "name": "Use",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.MultiplyBase",
-    //                 "steps": [
-    //                     0
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.NumberProperty",
-    //             "baseValue": 1,
-    //             "maxLevel": 5,
-    //             "name": "Water Circle Sphere",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     1,
-    //                     1,
-    //                     1,
-    //                     1,
-    //                     1,
-    //                     3
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         },
-    //         {
-    //             "type": "gg.norisk.heroes.common.ability.NumberProperty",
-    //             "baseValue": 10,
-    //             "maxLevel": 3,
-    //             "name": "Water Circle Fall Distance",
-    //             "modifier": {
-    //                 "type": "gg.norisk.heroes.common.ability.operation.AddValueTotal",
-    //                 "steps": [
-    //                     20,
-    //                     30,
-    //                     40
-    //                 ]
-    //             },
-    //             "levelScale": 315
-    //         }
-    //     ]
-    // }
 
     //alle elemente mit der klasse skill löschen
     const skills = document.getElementById('skillsBackground').getElementsByClassName('skill');
     for (let i = skills.length - 1; i >= 0; i--) {
         skills[i].remove();
     }
+    const skillNames = document.getElementById('skillsBackground').getElementsByClassName('skillName');
+    for (let i = skillNames.length - 1; i >= 0; i--) {
+        skillNames[i].remove();
+    }
 
     //clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    placeSkill('baseSkill', 0, 0, 0, 0, 0, true);
+    const selectedTabName = Object.keys(selectedHero.properties)[selectedTabIndex];
+
+    placeSkill(selectedTabName, 0, 0, 0, 0, 0, true, translationsAndIcons[selectedTabName].name, 0);
 
     let properties = selectedHero.properties;
 
@@ -739,8 +376,6 @@ function renderSkills(){
         let propertyElement = properties[keys[selectedTabIndex]][propertyKey];
         let userStats = stats.heroes[selectedHero.internalKey][keys[selectedTabIndex]];
         let id = propertyElement.name.toLowerCase().replace(/ /g, '_');
-
-        console.log(userStats, propertyElement, keys[selectedTabIndex])
 
         //🔢 Ability Level Calculation:
         // The level is calculated using the formula:
@@ -761,16 +396,18 @@ function renderSkills(){
         const x = properties[keys[selectedTabIndex]].length / 2 - propertyKey - 1;
 
         for (let i = 0; i < maxLevel; i++) {
-            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, xp - i, i < level);
+            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, xp - i, i < level, propertyElement.name, i + 1);
         }
     }
 }
 
-function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, obtained = false) {
+const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+
+function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, obtained = false, abilityName, abilityLevel) {
     const skillIcon = (translationsAndIcons[name] ? translationsAndIcons[name].icon : 'item/barrier.png');
-    const skillType = (translationsAndIcons[name] ? translationsAndIcons[name].type : 'task');
-    const skillName = (translationsAndIcons[name] ? translationsAndIcons[name].name : 'Unknown');
-    const skillDescription = (translationsAndIcons[name] ? translationsAndIcons[name].description : 'Unknown');
+    const skillType = (translationsAndIcons[name] ? translationsAndIcons[name].type ? translationsAndIcons[name].type : 'challenge' : 'challenge');
+    const skillName = abilityName + ' ' + ( abilityLevel !== 0 ? romanNumerals[abilityLevel - 1] : '');
+    const skillDescription = (translationsAndIcons[name] ? translationsAndIcons[name].description : 'No description available');
 
     const skills = document.getElementById('skillsBackground').getElementsByTagName('div');
     const skill = document.createElement('div');
@@ -801,6 +438,15 @@ function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, obtained 
     skills[0].appendChild(skill);
 
     addTextTooltip(skill, skillName + '\n\n' + skillDescription);
+
+    //skill name above the skill
+    const skillNameElement = document.createElement('div');
+    skillNameElement.className = 'skillName';
+    skillNameElement.style.left = x + 'px';
+    skillNameElement.style.top = y - 40 + 'px';
+    skillNameElement.innerText = skillName;
+    skills[0].appendChild(skillNameElement);
+
 }
 
 
