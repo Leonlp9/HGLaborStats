@@ -136,7 +136,7 @@ let translationsAndIcons = {
         "windowBackground": "block/quartz_block_bottom.png"
     },
     "tornado": {
-        "icon": "item/string.png",
+        "icon": "item/wind_charge.png",
         "name": "Tornado",
         "description": "Tornado is a powerful Airbending ability. It allows the user to create a tornado that sucks in entities and blocks.",
         "windowBackground": "block/quartz_block_bottom.png"
@@ -200,41 +200,98 @@ let translationsAndIcons = {
 
 
     "healing": {
-        "icon": "item/diamond.png",
+        "icon": "item/potion.png",
         "name": "Healing",
         "description": "Healing is a basic Waterbending ability. It allows the user to heal themselves or others.",
         "windowBackground": "block/ice.png"
     },
     "ice_shards": {
-        "icon": "block/ice.png",
+        "icon": "item/arrow.png",
         "name": "Ice Shards",
         "description": "Ice Shards is a basic Waterbending ability. It allows the user to shoot shards of ice at entities.",
         "windowBackground": "block/ice.png"
     },
     "water_bending": {
-        "icon": "item/diamond.png",
+        "icon": "item/water_bucket.png",
         "name": "Water Bending",
         "description": "Water Bending is a basic Waterbending ability. It allows the user to manipulate water.",
         "windowBackground": "block/ice.png"
     },
     "water_circle": {
-        "icon": "item/diamond.png",
+        "icon": "item/heart_of_the_sea.png",
         "name": "Water Circle",
         "description": "Water Circle is a basic Waterbending ability. It allows the user to create a circle of water.",
         "windowBackground": "block/ice.png"
     },
     "water_forming": {
-        "icon": "item/diamond.png",
+        "icon": "block/packed_ice.png",
         "name": "Water Forming",
         "description": "Water Forming is a basic Waterbending ability. It allows the user to form water into various shapes.",
         "windowBackground": "block/ice.png"
     },
     "water_pillar": {
-        "icon": "item/diamond.png",
+        "icon": "item/water_bucket.png",
         "name": "Water Pillar",
         "description": "Water Pillar is a basic Waterbending ability. It allows the user to create a pillar of water.",
         "windowBackground": "block/ice.png"
     },
+
+    "max_duration_lasts": {
+        "icon": "item/clock.png",
+        "type": "task",
+    },
+    "regeneration": {
+        "icon": "item/potion.png",
+        "type": "task",
+    },
+    "cooldown": {
+        "icon": "item/clock.png",
+        "type": "task",
+    },
+    "max_duration": {
+        "icon": "item/clock.png",
+        "type": "task",
+    },
+    "water_pillar_start_boost": {
+        "icon": "item/firework_rocket.png",
+        "type": "task",
+    },
+    "water_pillar_distance": {
+        "icon": "item/spyglass.png",
+        "type": "task",
+    },
+    "radius": {
+        "icon": "item/spyglass.png",
+        "type": "task",
+    },
+    "speed": {
+        "icon": "item/sugar.png",
+        "type": "task",
+    },
+    "step_height": {
+        "icon": "item/spyglass.png",
+        "type": "task",
+    },
+    "knockback": {
+        "icon": "item/stick.png",
+        "type": "task",
+    },
+    "slowness": {
+        "icon": "item/honey_bottle.png",
+        "type": "task",
+    },
+    "damage": {
+        "icon": "item/diamond_sword.png",
+        "type": "task",
+    },
+    "height": {
+        "icon": "item/slime_ball.png",
+        "type": "task",
+    },
+    "armor": {
+        "icon": "item/diamond_chestplate.png",
+        "type": "task",
+    }
 }
 
 /**
