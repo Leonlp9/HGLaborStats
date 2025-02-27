@@ -24,7 +24,6 @@ function convertMinecraftFormatting(component) {
     }
 
     const text = component.text || "";
-    console.log(component);
 
     if (component.extra) {
         component.extra.forEach(extra => {

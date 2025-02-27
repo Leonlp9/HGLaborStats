@@ -207,3 +207,45 @@ body {
     transform: rotateX(90deg) translateZ(calc(min(100vw / 16, 100vh / 15.1) * 15.1 * 0.04));
     filter: brightness(1);
 }
+
+.skill {
+    position: absolute;
+    width: 10vmin;
+    height: 10vmin;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    image-rendering: pixelated;
+    transform: translate(-50%, -50%);
+}
+
+.skill.goal {
+    background-image: url("goal_frame_unobtained.png");
+}
+
+.skill.goal.obtained {
+    background-image: url("goal_frame_obtained.png");
+}
+
+.skill.challenge {
+    background-image: url("challenge_frame_unobtained.png");
+}
+
+.skill.challenge.obtained {
+    background-image: url("challenge_frame_obtained.png");
+}
+
+.skill.task {
+    background-image: url("task_frame_unobtained.png");
+}
+
+.skill.task.obtained {
+    background-image: url("task_frame_obtained.png");
+}
+
+.skill img {
+    width: 70%;
+    height: 70%;
+    margin: 15%;
+    pointer-events: none;
+}
