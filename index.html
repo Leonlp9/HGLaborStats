@@ -143,18 +143,6 @@
         document.getElementById('skillTree').innerHTML = '';
         document.getElementById('skillTree').appendChild(iframeSkillTree);
 
-
-        //skilltreeV2
-        var iframeSkillTree2 = document.createElement('iframe');
-        iframeSkillTree2.setAttribute('src', 'skilltreeV2/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value);
-        iframeSkillTree2.setAttribute('height', '750px');
-        iframeSkillTree2.setAttribute('width', '850px');
-        iframeSkillTree2.setAttribute('frameborder', '0');
-        iframeSkillTree2.setAttribute('scrolling', 'no');
-
-        document.getElementById('skillTree2').innerHTML = '';
-        document.getElementById('skillTree2').appendChild(iframeSkillTree2);
-
         //erstelle den Code für das Iframe
         document.getElementById('iframeCodeSkillTree').innerText = '<iframe src="https://leonlp9.github.io/HGLaborStats/skilltree/?uuid=' + document.getElementById('uuid').value + '&lang=' + document.getElementById('lang').value + '" height="730px" width="850px" frameborder="0" scrolling="no"></iframe>';
 
