@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HG Labor - Inventory Viewer</title>
+  <script src="https://unpkg.com/skinview3d@3.0.0-alpha.1/bundles/skinview3d.bundle.js"></script>
+  <link rel="stylesheet" href="inventory/style.css">
+
+  <meta property="og:image" content="https://leonlp9.github.io/HGLaborStats/img.png">
+  <meta property="og:title" content="HG Labor - Inventory Viewer">
+  <meta property="og:description" content="Zeigt das Inventar eines Spielers an, wenn er es bearbeitet hat, und sommit in der Datenbank gespeichert wurde.">
+  <meta property="og:url" content="https://leonlp9.github.io/HGLaborStats/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HG Labor - Inventory Viewer">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+  <style>
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('minecraft.woff2') format('woff2');
+    }
+
+    body {
+      background-color: #141415;
+      color: #fff;
+      font-family: Minecraft, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      width: 100%;
+      height: 100px;
+      background-color: #111112;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .card {
+      background-color: #1e1e1f;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px;
+      color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+  </style>
+</head>
+<header>
+  <img src="https://norisk.gg/_app/immutable/assets/norisk_logo_color.DT8vq64y.png">
+</header>
+<body>
+<div class="container">
+  <div class="card" id="playerCard">
+    <h1 id="playerName">Loading...</h1>
+  </div>
+</div>
+</body>
+<footer>
+
+</footer>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const uuid = urlParams.get('uuid');
+
+  fetch(`https://playerdb.co/api/player/minecraft/${uuid}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      document.getElementById('playerName').innerText = data.data.player.username;
+
+      //apped iframe
+        const iframe = document.createElement('iframe');
+        iframe.src = `inventory/?uuid=${uuid}`;
+        iframe.style.width = '730px';
+        iframe.style.height = '730px';
+        document.getElementById('playerCard').appendChild(iframe);
+
+        const iframe2 = document.createElement('iframe');
+        iframe2.src = `skilltree/?uuid=${uuid}`;
+        iframe2.style.width = '730px';
+        iframe2.style.height = '850px';
+        document.getElementById('playerCard').appendChild(iframe2);
+
+
+    });
+</script>
+</html>
