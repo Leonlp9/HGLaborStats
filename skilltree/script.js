@@ -132,25 +132,25 @@ let translationsAndIcons = {
     "air_scooter": {
         "icon": "item/wind_charge.png",
         "name": "Air Scooter",
-        "description": "Air Scooter is a basic Airbending ability. It allows the user to create a gust of wind that propels them forward.",
+        "description": "Creates an airball that you dan ride on.",
         "windowBackground": "block/quartz_block_bottom.png"
     },
     "tornado": {
         "icon": "item/wind_charge.png",
         "name": "Tornado",
-        "description": "Tornado is a powerful Airbending ability. It allows the user to create a tornado that sucks in entities and blocks.",
+        "description": "Creates a tornado that pushes entities away.",
         "windowBackground": "block/quartz_block_bottom.png"
     },
     "air_ball": {
         "icon": "item/wind_charge.png",
         "name": "Air Ball",
-        "description": "Air Ball is a basic Airbending ability. It allows the user to create a ball of air that can be thrown at entities.",
+        "description": "By making circular movements with the mouse, you can create an air ball that can be scaled by scrolling.",
         "windowBackground": "block/quartz_block_bottom.png"
     },
     "levitation": {
         "icon": "item/feather.png",
         "name": "Levitation",
-        "description": "Levitation is a basic Airbending ability. It allows the user to levitate in the air.",
+        "description": "While holding the ability, you can glide.",
         "windowBackground": "block/quartz_block_bottom.png"
     },
     "spiritual_projection": {
@@ -164,31 +164,31 @@ let translationsAndIcons = {
     "earth_surf": {
         "icon": "item/iron_boots.png",
         "name": "Earth Surf",
-        "description": "Earth Surf is a basic Earthbending ability. It allows the user to surf on a block of earth.",
+        "description": "You can surf on the ground.",
         "windowBackground": "block/packed_mud.png"
     },
     "earth_column": {
         "icon": "block/stone.png",
         "name": "Earth Column",
-        "description": "Earth Column is a basic Earthbending ability. It allows the user to create a column of earth.",
+        "description": "You can bend an earth column.",
         "windowBackground": "block/packed_mud.png"
     },
     "earth_push": {
         "icon": "block/dirt.png",
         "name": "Earth Push",
-        "description": "Earth Push is a basic Earthbending ability. It allows the user to push entities away.",
+        "description": "You can strike a rock block an kick it on a direction.",
         "windowBackground": "block/packed_mud.png"
     },
     "earth_armor": {
         "icon": "item/iron_chestplate.png",
         "name": "Earth Armor",
-        "description": "Earth Armor is a basic Earthbending ability. It allows the user to create armor out of earth.",
+        "description": "You can bend nearby rock blocks to you and use them as armor.",
         "windowBackground": "block/packed_mud.png"
     },
     "earth_trap": {
         "icon": "block/dirt.png",
         "name": "Earth Trap",
-        "description": "Earth Trap is a basic Earthbending ability. It allows the user to create a trap out of earth.",
+        "description": "You can create a trap that pulls entities into the ground.",
         "windowBackground": "block/packed_mud.png"
     },
     "seismic_sense": {
@@ -208,13 +208,13 @@ let translationsAndIcons = {
     "ice_shards": {
         "icon": "item/arrow.png",
         "name": "Ice Shards",
-        "description": "Ice Shards is a basic Waterbending ability. It allows the user to shoot shards of ice at entities.",
+        "description": "You can shoot ice shards.",
         "windowBackground": "block/ice.png"
     },
     "water_bending": {
         "icon": "item/water_bucket.png",
         "name": "Water Bending",
-        "description": "Water Bending is a basic Waterbending ability. It allows the user to manipulate water.",
+        "description": "You can bend water by targeting water or plants.",
         "windowBackground": "block/ice.png"
     },
     "water_circle": {
@@ -226,13 +226,13 @@ let translationsAndIcons = {
     "water_forming": {
         "icon": "block/packed_ice.png",
         "name": "Water Forming",
-        "description": "Water Forming is a basic Waterbending ability. It allows the user to form water into various shapes.",
+        "description": "You must target water and hold the ability to create an ice bridge.",
         "windowBackground": "block/ice.png"
     },
     "water_pillar": {
         "icon": "item/water_bucket.png",
         "name": "Water Pillar",
-        "description": "Water Pillar is a basic Waterbending ability. It allows the user to create a pillar of water.",
+        "description": "You must be in water to create a water pillar that you can control at will.",
         "windowBackground": "block/ice.png"
     },
 
@@ -450,14 +450,17 @@ function renderSkills(){
         let levelScale = propertyElement.levelScale;
 
         let level = Math.cbrt(experiencePoints / levelScale);
-        let xp = Math.pow(level, 3);
 
         const maxLevel = propertyElement.maxLevel;
 
         const x = properties[keys[selectedTabIndex]].length / 2 - propertyKey - 1;
 
         for (let i = 0; i < maxLevel; i++) {
-            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, xp - i, i < level, propertyElement.name, i + 1);
+
+            let newXpNeeded = levelScale * Math.pow(i + 1, 3);
+            console.log(newXpNeeded - experiencePoints);
+
+            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, experiencePoints / newXpNeeded, i < level - 1, propertyElement.name, i + 1);
         }
     }
 }
