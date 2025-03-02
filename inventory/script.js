@@ -130,42 +130,50 @@ function createSkin(uuid) {
         skin: "https://mc-heads.net/skin/" + uuid
     });
 
+    async function loadCape(uuid) {
+        const url = `https://crafatar.com/capes/${uuid}`;
+        const res = await fetch(url);
+        if (res.status === 400) {
+            skinViewer.loadCape(null);
+        } else if (res.ok) {
+            skinViewer.loadCape(url);
+        } else {
+            skinViewer.loadCape(null);
+        }
+    }
+
+    loadCape(uuid).then(() => {});
+
     skinViewer.camera.position.set(0, 0, 45);
     skinViewer.animation = new skinview3d.IdleAnimation();
     skinViewer.controls.enableRotate = false;
     skinViewer.controls.enableZoom = false;
 
-    document.addEventListener("mousemove", function (e) {
+    function updatePlayerRotation(mouseX, mouseY) {
         const rect = skinViewer.canvas.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
 
-        // Differenz vom Canvaszentrum, normalisiert auf den Bereich [-1, 1]
-        const diffX = (mouseX - centerX) / (rect.width / 2);
-        const diffY = (mouseY - centerY) / (rect.height / 2);
+        const diffX = (mouseX - centerX) / rect.width;
+        const diffY = (mouseY - centerY) / rect.height;
 
-        // Berechne den (normalisierten) Abstand vom Zentrum
-        const distance = Math.sqrt(diffX * diffX + diffY * diffY);
-        // Dämpfungsfaktor: Bei weiter entfernten Mauspositionen wird die Rotation reduziert
-        const damping = 1 / (1 + distance);
+        const maxAngleX = Math.PI / 25;
+        const maxAngleY = Math.PI / 18;
+        const bodyFactor = 0.5;
 
-        // Maximale Rotationswinkel (in Radiant)
-        const maxAngleX = Math.PI / 6;   // ca. 30° horizontal
-        const maxAngleY = Math.PI / 16;  // ca. 11.25° vertikal
+        let rotX = -diffY * maxAngleY;
+        let rotY = -diffX * maxAngleX;
 
-        // Zielwinkel in horizontaler und vertikaler Richtung (mit Dämpfung)
-        const angleX = -diffX * maxAngleX * damping;
-        const angleY = diffY * maxAngleY * damping * 2;
+        const player = skinViewer.playerObject;
 
-        const cameraDistance = 45;
-        // Berechne die neue Kameraposition (vereinfachte Kugelkoordinaten)
-        const newX = cameraDistance * Math.sin(angleX) * Math.cos(angleY);
-        const newY = cameraDistance * Math.sin(angleY);
-        const newZ = cameraDistance * Math.cos(angleX) * Math.cos(angleY);
+        player.skin.head.innerLayer.rotation.set(-rotX, -rotY, 0);
+        player.skin.head.outerLayer.rotation.set(-rotX, -rotY, 0);
 
-        skinViewer.camera.position.set(newX, newY, newZ);
+        player.rotation.set(-rotX * bodyFactor, -rotY * bodyFactor, 0);
+    }
+
+    document.addEventListener("mousemove", function (e) {
+        updatePlayerRotation(e.clientX, e.clientY);
     });
 }
 
