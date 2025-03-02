@@ -224,6 +224,9 @@ function addTextTooltip(hoveringOnElement, text) {
             const lineElement = document.createElement("div");
             lineElement.innerHTML = formatMinecraftColorCodes(line);
             tooltip.appendChild(lineElement);
+            if (lineElement.textContent.trim().length === 0) {
+                tooltip.appendChild(document.createElement("br"));
+            }
         });
         return tooltip;
     });

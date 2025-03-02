@@ -239,62 +239,77 @@ let translationsAndIcons = {
     "max_duration_lasts": {
         "icon": "item/clock.png",
         "type": "task",
+        "description": "The maximum time\nyou can hold the ability."
     },
     "regeneration": {
         "icon": "item/potion.png",
         "type": "task",
+        "description": "The amount of\nhealth regenerated."
     },
     "cooldown": {
         "icon": "item/clock.png",
         "type": "task",
+        "description": "The time you must wait\nbefore you can use the ability again."
     },
     "max_duration": {
         "icon": "item/clock.png",
         "type": "task",
+        "description": "The maximum time\nyou can hold the ability."
     },
     "water_pillar_start_boost": {
         "icon": "item/firework_rocket.png",
         "type": "task",
+        "description": "How much you are boosted\nupwards when you use the ability."
     },
     "water_pillar_distance": {
         "icon": "item/spyglass.png",
         "type": "task",
+        "description": "The distance you can move\nbefore your ability ends."
     },
     "radius": {
         "icon": "item/stone_shovel.png",
         "type": "task",
+        "description": "The radius of effect\nfor this ability."
     },
     "speed": {
         "icon": "item/sugar.png",
         "type": "task",
+        "description": "How fast you move\nwhile using the ability."
     },
     "step_height": {
         "icon": "item/spyglass.png",
         "type": "task",
+        "description": "The maximum height\nof steps you can climb."
     },
     "knockback": {
         "icon": "item/stick.png",
         "type": "task",
+        "description": "The force with which\nyou push entities away."
     },
     "slowness": {
         "icon": "item/honey_bottle.png",
         "type": "task",
+        "description": "The amount of\nslowness applied."
     },
     "damage": {
         "icon": "item/diamond_sword.png",
         "type": "task",
+        "description": "The amount of\ndamage dealt."
     },
     "height": {
         "icon": "item/slime_ball.png",
         "type": "task",
+        "description": "The height affected\nby this ability."
     },
     "armor": {
         "icon": "item/diamond_chestplate.png",
         "type": "task",
+        "description": "The amount of\nprotection provided."
     },
     "water_forming_max_blocks": {
         "icon": "block/ice.png",
         "type": "task",
+        "description": "The maximum amount\nof water you can turn into ice."
     }
 }
 
@@ -426,7 +441,7 @@ function renderSkills(){
 
     const selectedTabName = Object.keys(selectedHero.properties)[selectedTabIndex];
 
-    placeSkill(selectedTabName, 0, 0, 0, 0, 0, true, translationsAndIcons[selectedTabName].name, 0);
+    placeSkill(selectedTabName, 0, 0, 0, 0, 1, translationsAndIcons[selectedTabName].name, 0);
 
     let properties = selectedHero.properties;
 
@@ -460,18 +475,18 @@ function renderSkills(){
             let newXpNeeded = levelScale * Math.pow(i + 1, 3);
             console.log(newXpNeeded - experiencePoints);
 
-            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, experiencePoints / newXpNeeded, i < level - 1, propertyElement.name, i + 1);
+            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, experiencePoints / newXpNeeded, propertyElement.name, i + 1);
         }
     }
 }
 
 const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
-function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, obtained = false, abilityName, abilityLevel) {
+function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, abilityName, abilityLevel) {
     const skillIcon = (translationsAndIcons[name] ? translationsAndIcons[name].icon : 'item/barrier.png');
     const skillType = (translationsAndIcons[name] ? translationsAndIcons[name].type ? translationsAndIcons[name].type : 'challenge' : 'challenge');
     const skillName = abilityName + ' ' + ( abilityLevel !== 0 ? romanNumerals[abilityLevel - 1] : '');
-    const skillDescription = (translationsAndIcons[name] ? translationsAndIcons[name].description : 'No description available');
+    const skillDescription = (translationsAndIcons[name] ? (translationsAndIcons[name].description ? translationsAndIcons[name].description : 'No description available') : 'No description available');
 
     const skills = document.getElementById('skillsBackground').getElementsByTagName('div');
     const skill = document.createElement('div');
@@ -491,7 +506,7 @@ function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, obtained 
         drawLine(connectX, connectY, x, y, percentFilled);
     }
 
-    if (obtained) {
+    if (percentFilled >= 1) {
         skill.classList.add('obtained');
     }
 
@@ -501,7 +516,13 @@ function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, obtained 
 
     skills[0].appendChild(skill);
 
-    addTextTooltip(skill, skillName + '\n\n' + skillDescription);
+    //filled with "§a|" * percentFilled and the rest with "§8|" * (1 - percentFilled)
+    let progressBar = "";
+    for (let i = 0; i < 50; i++) {
+        progressBar += i / 50 < percentFilled ? '§a|' : '§7|';
+    }
+
+    addTextTooltip(skill, "[" + abilityName + ']\n\n' + skillDescription + '\n\n[Progress]\n' + progressBar + " §f" + Math.min(Math.round(percentFilled * 10000) / 100, 100) + '%');
 
     //skill name above the skill
     const skillNameElement = document.createElement('div');
