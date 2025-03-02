@@ -385,6 +385,7 @@ function createTopTabs() {
     //skills auf x achse in mitte setzen vom scolling
     const skills = document.getElementById('skills');
     skills.scrollLeft = (skills.scrollWidth - skills.offsetWidth) / 2;
+    skills.scrollTop = 0;
 
 }
 
