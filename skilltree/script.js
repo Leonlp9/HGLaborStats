@@ -239,7 +239,8 @@ let translationsAndIcons = {
     "max_duration_lasts": {
         "icon": "item/clock.png",
         "type": "task",
-        "description": "The maximum time\nyou can hold the ability."
+        "description": "The maximum time\nyou can hold the ability.",
+        "valueUnit": "s"
     },
     "regeneration": {
         "icon": "item/potion.png",
@@ -249,12 +250,14 @@ let translationsAndIcons = {
     "cooldown": {
         "icon": "item/clock.png",
         "type": "task",
-        "description": "The time you must wait\nbefore you can use the ability again."
+        "description": "The time you must wait\nbefore you can use the ability again.",
+        "valueUnit": "s"
     },
     "max_duration": {
         "icon": "item/clock.png",
         "type": "task",
-        "description": "The maximum time\nyou can hold the ability."
+        "description": "The maximum time\nyou can hold the ability.",
+        "valueUnit": "s"
     },
     "water_pillar_start_boost": {
         "icon": "item/firework_rocket.png",
@@ -460,33 +463,29 @@ function renderSkills(){
         // xp = levelScale * level³
         // Higher levels require exponentially more XP.
 
-        //wenn userstats nicht existiert, dann hat der spieler dort 0 xp
         let experiencePoints = userStats ? userStats[id] ? userStats[id].experiencePoints : 0 : 0;
         let levelScale = propertyElement.levelScale;
-
-        let level = Math.cbrt(experiencePoints / levelScale);
 
         const maxLevel = propertyElement.maxLevel;
 
         const x = properties[keys[selectedTabIndex]].length / 2 - propertyKey - 1;
 
         for (let i = 0; i < maxLevel; i++) {
-
             let newXpNeeded = levelScale * Math.pow(i + 1, 3);
-            console.log(newXpNeeded - experiencePoints);
 
-            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, experiencePoints / newXpNeeded, propertyElement.name, i + 1);
+            placeSkill(id, x, i+1, (i === 0 ? 0 : x), i, experiencePoints / newXpNeeded, propertyElement.name, i + 1, propertyElement.baseValue, propertyElement.modifier);
         }
     }
 }
 
 const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
-function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, abilityName, abilityLevel) {
+function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, abilityName, abilityLevel, baseValue = null, modifier = null) {
     const skillIcon = (translationsAndIcons[name] ? translationsAndIcons[name].icon : 'item/barrier.png');
     const skillType = (translationsAndIcons[name] ? translationsAndIcons[name].type ? translationsAndIcons[name].type : 'challenge' : 'challenge');
     const skillName = abilityName + ' ' + ( abilityLevel !== 0 ? romanNumerals[abilityLevel - 1] : '');
     const skillDescription = (translationsAndIcons[name] ? (translationsAndIcons[name].description ? translationsAndIcons[name].description : 'No description available') : 'No description available');
+    const valueUnit = (translationsAndIcons[name] ? translationsAndIcons[name].valueUnit ? translationsAndIcons[name].valueUnit : '' : '');
 
     const skills = document.getElementById('skillsBackground').getElementsByTagName('div');
     const skill = document.createElement('div');
@@ -519,10 +518,28 @@ function placeSkill(name, x, y, connectX, connectY, percentFilled = 0, abilityNa
     //filled with "§a|" * percentFilled and the rest with "§8|" * (1 - percentFilled)
     let progressBar = "";
     for (let i = 0; i < 50; i++) {
-        progressBar += i / 50 < percentFilled ? '§a|' : '§7|';
+        progressBar += i / 50 < percentFilled ? (percentFilled < 0.3 ? '§c|' : percentFilled < 0.7 ? '§e|' : '§a|') : '§7|';
     }
 
-    addTextTooltip(skill, "[" + abilityName + ']\n\n' + skillDescription + '\n\n[Progress]\n' + progressBar + " §f" + Math.min(Math.round(percentFilled * 10000) / 100, 100) + '%');
+    let description = "[" + abilityName + ']\n\n' + skillDescription + '\n\n[Progress]\n' + progressBar + " §f" + Math.min(Math.round(percentFilled * 10000) / 100, 100) + '%'
+
+    if (baseValue !== null && modifier !== null) {
+        if (modifier.type === 'gg.norisk.heroes.common.ability.operation.AddValueTotal') {
+            const steps = modifier.steps;
+            let currentValue = baseValue;
+            for (let i = 0; i < abilityLevel; i++) {
+                currentValue += steps[i];
+            }
+            description += '\n\n' + Math.round(currentValue * 1000) / 1000 + valueUnit;
+        }else if (modifier.type === 'gg.norisk.heroes.common.ability.operation.MultiplyBase') {
+            const steps = modifier.steps;
+            let currentValue = baseValue;
+            currentValue *= steps[abilityLevel];
+            description += '\n\n' + Math.round(currentValue * 1000) / 1000 + valueUnit;
+        }
+    }
+
+    addTextTooltip(skill, description);
 
     //skill name above the skill
     const skillNameElement = document.createElement('div');
